@@ -20,15 +20,20 @@ export class App extends Component {
   searchInputId = nanoid();
 
   componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
+    const contactsInLocalStorageGet = 'contacts';
+    const contacts = localStorage.getItem(contactsInLocalStorageGet);
     const parsedContacts = JSON.parse(contacts);
     if (parsedContacts) {
       this.setState({ contacts: parsedContacts });
     }
   }
   componentDidUpdate(prevProps, prevState) {
+    const contactsInLocalStorageSet = 'contacts';
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem(
+        contactsInLocalStorageSet,
+        JSON.stringify(this.state.contacts)
+      );
     }
   }
 
@@ -94,4 +99,5 @@ App.propTypes = {
     contacts: PropTypes.arrayOf(PropTypes.string.isRequired),
     filter: PropTypes.string.isRequired,
   }),
+  contactsInLocalStorage: PropTypes.arrayOf(),
 };
